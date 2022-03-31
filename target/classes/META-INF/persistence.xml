@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.1" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="MioProgetto-persistence-unit" transaction-type="JTA">
+    <description>Forge Persistence Unit</description>
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    <jta-data-source>java:/ProgettoDS</jta-data-source>
+    <class>it.org.negozio.entity.Carrello</class>
+    <class>it.org.negozio.entity.Categoria</class>
+    <class>it.org.negozio.entity.Cliente</class>
+    <class>it.org.negozio.entity.Marca</class>
+    <class>it.org.negozio.entity.Ordine</class>
+    <class>it.org.negozio.entity.Prodotto</class>
+    <class>it.org.negozio.entity.ProdottoInCarrello</class>
+    <class>it.org.negozio.entity.ProdottoInOrdine</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <property name="hibernate.hbm2ddl.auto" value="none"/> 
+<!--  <property name="hibernate.hbm2ddl.auto" value="create-drop"/>   -->
+      <property name="hibernate.show_sql" value="true"/>
+      <property name="hibernate.format_sql" value="true"/>
+      <property name="hibernate.transaction.flush_before_completion" value="true"/>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+    </properties>
+  </persistence-unit>
+</persistence>

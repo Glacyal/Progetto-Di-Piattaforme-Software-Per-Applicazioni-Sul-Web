@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/template.xhtml">
+		<ui:define name="content">
+			
+			
+			<h:form rendered="${carrelloController.logged}">
+				<center><h1>STORICO ORDINI</h1> </center>
+				<ui:repeat var="ordine" value="#{carrelloController.storicoOrdini()}" >
+					<h1>ID Ordine <h:outputText value="#{ordine.id}"/> - Totale: <h:outputText value="#{ordine.prezzoTotale}" />  €</h1>
+					<br/>
+					<h:dataTable 	value="#{ordine.prodottiAcquistati}" var="item" 
+									styleClass="table_carrello"
+									headerClass="header_carrello"
+									rowClasses="row_carrello"
+									columnClasses="column_carrello"
+									>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Nome">
+								</h:outputText>
+							</f:facet>
+							<h:outputText value="#{item.prodotto_id.nome}">
+							</h:outputText>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Quantità acquistata">
+								</h:outputText>
+							</f:facet>
+							<h:outputText value="#{item.quantita}">
+							</h:outputText>
+						</h:column>
+					</h:dataTable><br/><br/>
+				</ui:repeat>
+			</h:form>
+			
+		</ui:define>
+	</ui:composition>
+</html>

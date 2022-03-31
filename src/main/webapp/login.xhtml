@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/template.xhtml">
+		<ui:define name="content">
+		
+			<h:form rendered="${!carrelloController.logged}">
+				<h1><b>Login</b></h1>
+				
+				Nome Utente:<br/>
+				<h:inputText id="NomeUtente" value="#{carrelloController.userName}" styleClass="form_login">
+				<f:validateLength minimum="3" maximum="50"></f:validateLength></h:inputText><br/>
+				<h:message for="NomeUtente"/><br/>
+				
+				Password:<br/>
+				<h:inputSecret id="Password" value="#{carrelloController.password}" styleClass="form_login" >
+				<f:validateLength minimum="3" maximum="50"></f:validateLength></h:inputSecret><br/>
+				<h:message for="Password"/><br/>
+				
+				<h:commandButton action="#{carrelloController.login()}" value="ACCEDI" />
+			</h:form><br/><br/><br/>
+			
+			<h:form rendered="${!carrelloController.logged and !accessController.alreadySignup}">
+				<h1><b>Registrazione</b></h1>
+				Nome:<br/>
+				
+				<h:inputText id="Nome" value="#{accessController.nome}" styleClass="form_login">
+				<f:validateLength minimum="3" maximum="50"></f:validateLength></h:inputText><br/>
+				<h:message for="Nome"/><br/>
+				Cognome:<br/>
+				
+				<h:inputText id="Cognome" value="#{accessController.cognome}" styleClass="form_login">
+				<f:validateLength minimum="3" maximum="50"></f:validateLength></h:inputText><br/>
+				<h:message for="Cognome"/><br/>
+				User:<br/>
+				
+				<h:inputText id="User" value="#{accessController.userName}" styleClass="form_login">
+				<f:validateLength minimum="3" maximum="50"></f:validateLength></h:inputText><br/>
+				<h:message for="User"/><br/>
+				Password:<br/>
+				
+				<h:inputSecret id="Pass" value="#{accessController.password}" styleClass="form_login">
+				<f:validateLength minimum="3" maximum="50"></f:validateLength></h:inputSecret><br/>
+				<h:message for="Pass"/><br/>
+				Vuoi registrarti come amministratore?<br/>	
+				<h:selectOneMenu id="admin" required="true" label="Admin" value="#{accessController.admin}">
+						<f:selectItem itemValue="false"/>
+						<f:selectItem itemValue="true"/>
+				</h:selectOneMenu><br/>			
+				<h:commandButton action="#{accessController.signup()}" value="REGISTRAZIONE" />
+			</h:form>
+			  				
+		</ui:define>
+	</ui:composition>
+</html>

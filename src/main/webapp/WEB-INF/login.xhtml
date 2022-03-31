@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/template.xhtml">
+		<ui:define name="content">
+		
+			<h:form rendered="${!carrelloController.logged}">
+				<h1><b>Login</b></h1>
+				Nome utente: <br/>
+				<h:inputText value="#{carrelloController.userName}" styleClass="form_login" /><br/>
+				Password:<br/>
+				<h:inputSecret value="#{carrelloController.password}" styleClass="form_login"/><br/>
+				<h:commandButton action="#{carrelloController.login()}" value="ACCEDI" />
+			</h:form><br/><br/><br/>
+			<h:form rendered="${!carrelloController.logged and !accessController.alreadySignup}">
+				<h1><b>Registrazione</b></h1>
+				Nome:<br/>
+				<h:inputText value="#{accessController.nome}" styleClass="form_login" /><br/>
+				Cognome:<br/>
+				<h:inputText value="#{accessController.cognome}" styleClass="form_login" /><br/>
+				User:<br/>
+				<h:inputText value="#{accessController.userName}" styleClass="form_login" /><br/>
+				Password:<br/>
+				<h:inputSecret value="#{accessController.password}" styleClass="form_login"/><br/>
+				Vuoi registrarti come amministratore?<br/>	
+				<h:selectOneMenu id="admin" required="true" label="Admin" value="#{accessController.admin}">
+						<f:selectItem itemValue="false"/>
+						<f:selectItem itemValue="true"/>
+				</h:selectOneMenu><br/>			
+				<h:commandButton action="#{accessController.signup()}" value="REGISTRAZIONE" />
+			</h:form>
+			
+			<f:subview id="adminPanel" rendered="#{carrelloController.admin}">
+				<h1>Pannello Amministratore</h1><br/>
+				
+				<h:form >
+					<b><u>Aggiorna quantita di un prodotto</u></b><br/>
+					Prodotto da aggiornare:<br/>
+					<h:selectOneMenu value="#{adminAbility.id_prodotto}">
+			   			<f:selectItems value="#{adminAbility.getProdottiDisponibili()}" var="prod"
+	   								itemLabel="#{prod.nome}" itemValue="#{prod.id}" />
+			   		</h:selectOneMenu> <br/>
+			   		Nuova quantità<br/>
+			   		<h:inputText value="#{adminAbility.quantitaResidua}">
+			   			<f:validateLongRange minimum="0" maximum="99999" />
+			   		</h:inputText> 
+			   		<h:commandButton action="#{adminAbility.aggiornaQuantitaMagazzinoProdotto()}" value="aggiorna"/>
+			   		 
+			   		<br/><br/><br/>
+		   		</h:form>
+		   		
+		   		<h:form>
+			   		<b><u>Aggiungi prodotto</u></b><br/>
+			   		Nome del prodotto:<br/>
+					<h:inputText value="#{adminAbility.nome_prodotto}">
+			   			<f:validateLength minimum="3"></f:validateLength>
+			   		</h:inputText> <br/>
+			   		
+			   		Prezzo(intero):<br/>
+					<h:inputText value="#{adminAbility.prezzo}">
+			   			
+			   		</h:inputText> <br/>
+			   		
+			   		Quantita iniziale(intero):<br/>
+					<h:inputText value="#{adminAbility.quantitaResidua}">
+			   			<f:validateLongRange minimum="1" maximum="99999" />
+			   		</h:inputText> <br/>
+			   		
+			   		Seleziona marca del prodotto:<br/>
+			   		<h:selectOneMenu value="#{adminAbility.id_marca}">
+			   			<f:selectItems value="#{adminAbility.getMarcheDisponibili()}" var="marca"
+	   								itemLabel="#{marca.nome}" itemValue="#{marca.id}" />
+			   		</h:selectOneMenu>  <br/>
+			   		
+			   		Seleziona categoria del prodotto:<br/>
+			   		<h:selectOneMenu value="#{adminAbility.id_categoria}">
+			   			<f:selectItems value="#{adminAbility.getCategorieDisponibili()}" var="cat"
+	   								itemLabel="#{cat.nome}" itemValue="#{cat.id}" />
+			   		</h:selectOneMenu>  <br/>
+			   		
+			   		<h:commandLink action="#{adminAbility.aggiungiProdotto()}" value="aggiungi prodotto"/>
+		   		</h:form><br/><br/>	   		
+		   		<h:form>
+			   		<b><u>Aggiungi categoria per prodotti</u></b><br/>
+			   		Nome della nuova categoria:<br/>
+					<h:inputText value="#{adminAbility.nome_categoria}">
+			   			<f:validateLength minimum="3"></f:validateLength>
+			   		</h:inputText> <br/>
+			   		
+			   		<h:commandLink action="#{adminAbility.aggiungiCategoria()}" value="aggiungi categoria"/>
+		   		</h:form><br/><br/>	   		
+		   		<h:form>
+			   		<b><u>Aggiungi marca per prodotti</u></b><br/>
+			   		Nome della nuova marca:<br/>
+					<h:inputText value="#{adminAbility.nome_marca}">
+			   			<f:validateLength minimum="3"></f:validateLength>
+			   		</h:inputText> <br/>
+			   		
+			   		Breve descrizione della marca:<br/>
+					<h:inputText value="#{adminAbility.descrizione_marca}">
+			   			<f:validateLength minimum="3"></f:validateLength>
+			   		</h:inputText> <br/>
+			   		
+			   		<h:commandLink action="#{adminAbility.aggiungiMarca()}" value="aggiungi marca"/>
+		   		</h:form><br/><br/>		   		
+		   	  </f:subview>		   				
+		</ui:define>
+	</ui:composition>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/template.xhtml">
+		<ui:define name="content">
+		
+			<h:form id="cart">
+				<center><h1>CARRELLO PRODOTTI</h1> </center>
+				<h:dataTable value="#{carrelloController.carrello.prodotti}" var="item" 
+				styleClass="table_carrello"
+				headerClass="header_carrello"
+				rowClasses="row_carrello"
+				columnClasses="column_carrello"
+				rendered="#{carrelloController.carrello.prodotti.size()>0}">
+				
+					<h:column>
+							<f:facet name="header">
+								<h:outputText value="Operazioni">
+								</h:outputText>
+							</f:facet>
+							<h:commandLink id="add_product" value="(+1)" action="#{carrelloController.aggiungiProdotto(item.prodotto_id)}">
+								
+							</h:commandLink>
+							<h:commandLink id="remove_product" value="(-1)" action="#{carrelloController.rimuoviProdotto(item.prodotto_id)}">			
+							</h:commandLink>
+							
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Nome">
+							</h:outputText>
+						</f:facet>
+						<center> <h:outputText value="#{item.prodotto_id.nome}"></h:outputText> </center>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Quantità desiderata">
+							</h:outputText>
+						</f:facet>
+						<center> <h:outputText value="#{item.quantita}"></h:outputText> </center>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Quantità in magazzino">
+							</h:outputText>
+						</f:facet>
+						<center><h:outputText value="#{item.prodotto_id.quantitaResidua}"></h:outputText> </center>
+					</h:column>
+				</h:dataTable>
+				<p align="left">
+				<b>
+					<h:commandLink id="buy" value="Compra" action="#{carrelloController.paga()}" rendered="#{carrelloController.carrello.prodotti.size()>0}"/>
+				</b>
+				</p>		
+				
+			</h:form>
+			
+			
+		</ui:define>
+	</ui:composition>
+</html>

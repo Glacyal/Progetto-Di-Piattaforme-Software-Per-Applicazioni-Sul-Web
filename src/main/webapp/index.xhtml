@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/template.xhtml">
+		<ui:define name="content">
+				<h2>LISTA DEI PRODOTTI PRESENTI NEL CATALOGO</h2>
+				<h:form>
+					<h:dataTable value="#{listProdotti.getListaProdotti()}" var="item" 
+						styleClass="table_carrello"
+						headerClass="header_carrello"
+						rowClasses="row_carrello"
+						columnClasses="column_carrello">
+						
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Nome">
+								</h:outputText>
+							</f:facet>
+							<h:outputText value="#{item.nome}">
+							</h:outputText>
+						</h:column>
+						
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Marca">
+								</h:outputText>
+							</f:facet>
+							<h:outputText value="#{item.marca.nome}">
+							</h:outputText>
+					
+						</h:column>
+						
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Categoria">
+								</h:outputText>
+							</f:facet>
+							<h:outputText value="#{item.categoria.nome}">
+							</h:outputText>
+							
+						</h:column>
+						
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="n° pezzi">
+								</h:outputText>
+							</f:facet>
+							<h:outputText value="#{item.quantitaResidua}">
+							</h:outputText>
+							
+						</h:column>						
+						
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Prezzo">
+								</h:outputText>
+							</f:facet>
+							<h:outputText value="#{item.prezzo} €">
+							</h:outputText>
+						</h:column>
+						<h:column rendered="${carrelloController.logged}">
+							<f:facet name="header">
+								<h:outputText value="Operazioni">
+								</h:outputText>
+							</f:facet>
+							<h:commandLink value="Aggiungi al Carrello" action="#{carrelloController.aggiungiProdotto(item)}" rendered="${item.quantitaResidua > 0}">
+							</h:commandLink>
+						</h:column>
+						
+					</h:dataTable>
+				</h:form>
+		</ui:define>
+	</ui:composition>
+</html>

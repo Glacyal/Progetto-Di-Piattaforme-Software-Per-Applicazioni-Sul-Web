@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:em="http://xmlns.jcp.org/xml/ns/javaee/composite/emcomp">
+ 
+  
+ 		<head>
+		<title><ui:insert name="pageTitle">NegozioWeb</ui:insert></title>
+
+        <link rel="stylesheet" type="text/css" href="css/default.css"></link>
+        <link rel="stylesheet" type="text/css" href="css/cssLayout.css"></link>
+		
+		</head>
+
+<body bgcolor="#ffffff">
+<f:view>
+        <div id="top">
+        	<center>NegozioWeb</center>
+        </div>
+            <div id="left">
+            	<h3>
+                <ui:insert name="left">
+                <h:form>
+					<h:commandLink action="/index" value="Sfoglia catalogo" /><br/>
+					<h:commandLink action="/login" value="Login/Reg" rendered="${!carrelloController.logged}"/><br/>
+					<h:commandLink action="/visualizzaCarrello" value="Visualizza carrello" rendered="${carrelloController.logged}"/><br/>
+					<h:commandLink action="/storicoOrdini" value="Storico ordini" rendered="${carrelloController.logged}"/><br/>
+					<h:commandLink action="/admin" value="Admin"  rendered="${carrelloController.admin}"/><br/>
+				</h:form>
+                </ui:insert></h3>
+            </div>
+            
+            <div id="content" class="left_content">
+            	<center>
+            	<h3>
+                <ui:insert name="content">
+                          
+          			
+                </ui:insert>   
+                </h3>
+                </center>
+            </div>
+        
+        <div id="bottom">
+           <h:form ><h1>
+     	   <h:commandLink action="${carrelloController.logout()}" value="Logout" rendered="${carrelloController.logged}"/><br/>
+     	   </h1>
+     	   </h:form>
+    
+        </div>
+</f:view>
+</body>
+		
+</html>
